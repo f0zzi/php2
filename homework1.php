@@ -23,7 +23,10 @@
                                     $back_color = "#";
                                     foreach ($_POST as $input_val)
                                     {
-                                        $back_color .= dechex(intval($input_val));
+                                        $tmp = strval(dechex(intval($input_val)));
+                                        if(strlen($tmp) < 2)
+                                            $tmp = "0" . $tmp;
+                                        $back_color .= $tmp;
                                     }
                                 }
                                 echo '<div class="card-header" style="background-color:' . $back_color . '">';
