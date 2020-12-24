@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php include_once "_header.php"?>
 
-
   <body class="c-app">
     <?php include_once "_sidebar.php"; ?>
     <div class="c-wrapper c-fixed-components">

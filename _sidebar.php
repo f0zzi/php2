@@ -31,6 +31,14 @@
             </a>
         </li>
         <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link" href="users.php">
+                <svg class="c-sidebar-nav-icon">
+                    <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-drop1"></use>
+                </svg>
+                Користувачі
+            </a>
+        </li>
+        <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" href="homework1.php">
                 <svg class="c-sidebar-nav-icon">
                     <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-drop1"></use>

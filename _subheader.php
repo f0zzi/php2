@@ -73,25 +73,10 @@
     <div class="c-subheader px-3">
         <!-- Breadcrumb-->
         <ol class="breadcrumb border-0 m-0">
-            <li class="breadcrumb-item">
-                <a href="/index.php">
-                    Головна
-                </a>
-            </li>
-                <?php
-                $name = $_SERVER['PHP_SELF'];
-                if($name !== "/index.php")
-                {
-                    echo '<li class="breadcrumb-item active">';
-                    if (isset($page_name)) {
-                        echo $page_name;
-                    } else {
-                        echo basename($name, ".php");
-                    }
-                    echo "</li>";
-                }
-                ?>
-            <!-- Breadcrumb Menu-->
+            <?php
+            foreach ($breadcrumbs as $item)
+                $item->show();
+            ?>
         </ol>
     </div>
 </header>
