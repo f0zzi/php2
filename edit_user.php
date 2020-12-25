@@ -1,5 +1,9 @@
 <?php
 include_once "connection_database.php";
+if (isset($_REQUEST["id"])) {
+    $stmt = $dbh->query("SELECT * FROM `tbl_users` WHERE `id` = " . $_REQUEST["id"]);
+    $user = $stmt->fetch();
+}
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['image']) && isset($_POST['password'])) {
         if (!preg_match("/\w/", $_POST['name'])) {
@@ -27,8 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     'email' => $_POST['email'],
                     'image' => $_POST['image'],
                     'password' => $_POST['password'],
+                    'id' => $user['id'],
                 ];
-                $sql = "INSERT INTO tbl_users (name, email, image, password) VALUES (:name, :email, :image, :password)";
+                $sql = "UPDATE tbl_users SET name=:name, email=:email, image=:image, password=:password WHERE id=:id";
                 $stmt = $dbh->prepare($sql);
                 $stmt->execute($data);
                 header('Location: /users.php');
@@ -51,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $breadcrumbs = array();
     $breadcrumbs[] = new BreadcrumbItem("Головнa", false, "/");
     $breadcrumbs[] = new BreadcrumbItem("Користувачі", false, "/users.php");
-    $breadcrumbs[] = new BreadcrumbItem("Додати користувача", true);
+    $breadcrumbs[] = new BreadcrumbItem("Редагування користувача", true);
     ?>
     <?php include_once "_subheader.php"; ?>
     <div class="c-body">
@@ -62,14 +67,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     <div class="row">
                         <div class="col-md-6">
                             <div class="card">
-                                <div class="card-header"><strong>Додати користувача</strong></div>
+                                <div class="card-header"><strong>Редагування користувача</strong></div>
                                 <div class="card-body">
                                     <form class="form-horizontal" method="post" enctype="multipart/form-data">
                                         <div class="form-group row">
                                             <label class="col-md-3 col-form-label" for="name">Name</label>
                                             <div class="col-md-9">
                                                 <input class="form-control" id="name" type="text"
-                                                       name="name" placeholder="Text">
+                                                       name="name" placeholder="Enter Name"
+                                                       value="<?php echo $user["Name"]; ?>">
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -77,22 +83,25 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                             <div class="col-md-9">
                                                 <input class="form-control" id="email" type="email"
                                                        name="email" placeholder="Enter Email"
-                                                       autocomplete="email">
+                                                       autocomplete="email"
+                                                       value="<?php echo $user["Email"]; ?>">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 col-form-label" for="image">Image</label>
                                             <div class="col-md-9">
                                                 <input class="form-control" id="image" type="text"
-                                                       name="image" placeholder="Enter Image Path">
+                                                       name="image" placeholder="Enter Image Path"
+                                                       value="<?php echo $user["Image"]; ?>">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 col-form-label" for="password">Password</label>
                                             <div class="col-md-9">
                                                 <input class="form-control" id="password" type="text"
-                                                       name="password" placeholder="Password"
-                                                       autocomplete="new-password">
+                                                       name="password" placeholder="Enter Password"
+                                                       autocomplete="new-password"
+                                                       value="<?php echo $user["Password"]; ?>">
                                             </div>
                                         </div>
                                         <!--                                        <div class="form-group row">-->
@@ -102,8 +111,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                         <!--                                            </div>-->
                                         <!--                                        </div>-->
                                         <div class="card-footer">
-                                            <button class="btn btn-sm btn-primary" type="submit"> Додати</button>
-                                            <button class="btn btn-sm btn-danger" type="reset"> Reset</button>
+                                            <button class="btn btn-sm btn-danger" type="submit"> Зберегти</button>
+                                            <a href="users.php" class="btn btn-sm btn-primary"> Назад</a>
                                         </div>
                                         <?php
                                         if (isset($Err)) {

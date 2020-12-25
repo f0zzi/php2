@@ -5,7 +5,11 @@
 <?php include_once "_sidebar.php"; ?>
 <div class="c-wrapper c-fixed-components">
     <?php
-    $page_name="Домашка 1";
+    include_once "classes.php";
+    //$bItem = new BreadcrumbItem;
+    $breadcrumbs = array();
+    $breadcrumbs[] = new BreadcrumbItem("Головнa", false, "/");
+    $breadcrumbs[] = new BreadcrumbItem("Домашка 1", true);
     ?>
     <?php include_once "_subheader.php"; ?>
     <div class="c-body">

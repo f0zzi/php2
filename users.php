@@ -34,54 +34,37 @@
                                                 </svg>
                                             </th>
                                             <th>User</th>
-                                            <th class="text-center">Country</th>
-                                            <th>Usage</th>
-                                            <th class="text-center">Payment Method</th>
-                                            <th>Activity</th>
+                                            <th>Email</th>
+                                            <th>Password</th>
+                                            <th>Actions</th>
+                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <?php
-                                        foreach ($dbh->query($sql) as $row)
-                                        {
-                                        echo '
+                                        foreach ($dbh->query($sql) as $row) {
+                                            echo '
                                         <tr>
                                             <td class="text-center">
                                                 <div class="c-avatar"><img class="c-avatar-img"
-                                                                           src="'.$row["Image"].'"
+                                                                           src="' . $row["Image"] . '"
                                                                            alt="user@email.com"><span
                                                             class="c-avatar-status bg-success"></span></div>
                                             </td>
                                             <td>
-                                                <div>'.$row["Name"].'</div>
-                                                <div class="small text-muted"><span>New</span> | Registered: Jan 1, 2015
-                                                </div>
-                                            </td>
-                                            <td class="text-center">
-                                                <svg class="c-icon c-icon-xl">
-                                                    <use xlink:href="node_modules/@coreui/icons/sprites/flag.svg#cif-us"></use>
-                                                </svg>
+                                                <div>' . $row["Name"] . '</div>
                                             </td>
                                             <td>
-                                                <div class="clearfix">
-                                                    <div class="float-left"><strong>50%</strong></div>
-                                                    <div class="float-right"><small class="text-muted">Jun 11, 2015 -
-                                                            Jul 10, 2015</small></div>
-                                                </div>
-                                                <div class="progress progress-xs">
-                                                    <div class="progress-bar bg-gradient-success" role="progressbar"
-                                                         style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                         aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                            <td class="text-center">
-                                                <svg class="c-icon c-icon-xl">
-                                                    <use xlink:href="node_modules/@coreui/icons/sprites/brand.svg#cib-cc-mastercard"></use>
-                                                </svg>
+                                                <div>' . $row["Email"] . '</div>
                                             </td>
                                             <td>
-                                                <div class="small text-muted">Last login</div>
-                                                <strong>10 sec ago</strong>
+                                                <div>' . $row["Password"] . '</div>
+                                            </td>
+                                            <td>
+                                                <a href="edit_user.php?id='. $row["id"].'" class="btn btn-sm btn-primary">Edit</a>
+                                            </td>
+                                            <td>
+                                                <a href="delete_user.php?id='. $row["id"].'" class="btn btn-sm btn-danger">Delete</a>
                                             </td>
                                         </tr>
                                         ';
